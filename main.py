@@ -8,14 +8,14 @@ class Touch(Widget):
         super(Touch, self).__init__(**kwargs)
         with self.canvas:
             Color(1, 0, 0, .5, mode='rgba')
-            self.rect = Rectangle(pos=(0, 0), size=(50, 50))
-            self.image = Image(source=)
+
+            self.image = Image(source="clipart145323.png", pos=(0, 0), size=(50, 50))
     def on_touch_down(self, touch):
         print("mouse down", touch)
-        self.rect.pos = touch.pos
+        self.image.pos = touch.pos
     def on_touch_move(self, touch):
         print("mouse move", touch)
-        self.rect.pos = touch.pos
+        self.image.pos = touch.pos
     def on_touch_up(self, touch):
         print("mouse up", touch)
 
