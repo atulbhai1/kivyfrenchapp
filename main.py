@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import kivy
+from kivy.app import App
+from kivy.uix.widget import Widget
+from kivy.graphics import Rectangle, Color
+from kivy.uix.image import Image
+class Touch(Widget):
+    def __init__(self, **kwargs):
+        super(Touch, self).__init__(**kwargs)
+        with self.canvas:
+            Color(1, 0, 0, .5, mode='rgba')
+            self.rect = Rectangle(pos=(0, 0), size=(50, 50))
+            self.image = Image(source=)
+    def on_touch_down(self, touch):
+        print("mouse down", touch)
+        self.rect.pos = touch.pos
+    def on_touch_move(self, touch):
+        print("mouse move", touch)
+        self.rect.pos = touch.pos
+    def on_touch_up(self, touch):
+        print("mouse up", touch)
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+class MyApp(App):
+    def build(self):
+        return Touch()
+if __name__ == "__main__":
+    MyApp().run()
