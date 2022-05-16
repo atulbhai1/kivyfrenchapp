@@ -28,8 +28,8 @@ class Touch(Widget):
         self.points = ()
 
 
-class MyApp(App):
+class CanvasApp(App):
     def build(self):
         return Touch()
 if __name__ == "__main__":
-    MyApp().run()
+    CanvasApp().run()
