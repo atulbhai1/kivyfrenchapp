@@ -1,6 +1,7 @@
 WindowManager:
     MainWindow:
     SecondWindow:
+    ThirdWindow:
 <MainWindow>:
     name: "main"
     GridLayout:
@@ -25,12 +26,40 @@ WindowManager:
         Button:
             text: "Submit"
             on_release: root.translate()
+        Button:
+            text: "Credits"
+            on_release:
+                app.root.current = "third"
+                root.manager.transition.direction = "right"
 
 <SecondWindow>:
     name:"second"
-
-    Button:
-        text: "Translate Again"
-        on_release:
-            app.root.current = "main"
-            root.manager.transition.direction = "right"
+    GridLayout:
+        cols:1
+        Label:
+            id: theLabel
+            text: root.toShow
+            font_name: '//Users/srinivasansrinivasan/PycharmProjects/kivyfrenchapp/arial-unicode-ms.ttf'
+        Button:
+            text: "Translate Again"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+<ThirdWindow>:
+    name: "third"
+    GridLayout:
+        cols:1
+        Label:
+            text: "Thank you to google for the translations"
+        Label:
+            text: "Thank you for https://www.download-free-fonts.com for the translated font"
+        Button:
+            text: "Return To Home Screen"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+<P>:
+    Label:
+        text: root.text
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "top":1}
