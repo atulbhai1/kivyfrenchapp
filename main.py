@@ -1,35 +1,29 @@
-import kivy
+from kivy.lang import Builder
 from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.graphics import Color, Line
-from kivy.uix.image import Image
-class Touch(Widget):
-    def __init__(self, **kwargs):
-        super(Touch, self).__init__(**kwargs)
-        self.points = ()
-        with self.canvas:
-            self.image = Image(source="clipart145323.png", pos=(0, 0), size=(50, 50))
-    def on_touch_down(self, touch):
-        print("mouse down", touch)
-        self.image.pos = touch.pos
-        self.points = self.points+touch.pos
-        with self.canvas:
-            Color(1, 0, 0, .5, mode='rgba')
-            Line(points=self.points)
-    def on_touch_move(self, touch):
-        print("mouse move", touch)
-        self.image.pos = touch.pos
-        self.points = self.points + touch.pos
-        with self.canvas:
-            Color(1, 0, 0, .5, mode='rgba')
-            Line(points=self.points)
-    def on_touch_up(self, touch):
-        print("mouse up", touch)
-        self.points = ()
+from pygtranslate.translator import Translator
+from kivy.uix.screenmanager import Screen, ScreenManager
+translationInfo = {"To": None,"From": None, "FromText": None, "toText":None}
+client = Translator()
+class MainWindow(Screen):
+    global translationInfo
+    def translate(self):
+        global translationInfo
+        App.get_running_app().root.current = 'second'
+        self.manager.transition.direction = "left"
+        translationInfo['FromText'] = self.ids.toTranslate.text
+        translationInfo['To'] = self.ids.translateInto.text
+        translationInfo['From'] = self.ids.translateFrom.text
+        translationInfo['toText'] = client.translate(translationInfo['FromText'], from_lang=translationInfo['From'], to_lang=translationInfo['To'])
 
 
+class SecondWindow(Screen):
+    pass
+
+class WindowManager(ScreenManager):
+    pass
+kv = Builder.load_file("my.kv")
 class MyApp(App):
     def build(self):
-        return Touch()
+        return kv
 if __name__ == "__main__":
     MyApp().run()
